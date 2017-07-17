@@ -1,4 +1,4 @@
-﻿using System;
+﻿﻿using System;
 using System.IO;
 using System.Collections.Generic;
 using StardewModdingAPI;
@@ -24,8 +24,12 @@ namespace TreeTransplant
 		/// <param name="helper">Instance of mod helper.</param>
 		public override void Entry(IModHelper helper)
 		{
-			// store static instance of helper
-			GameEvents.LoadContent += handleLoadContent;
+			// batch together the trees in a render texture for our menu
+			loadTreeTexture();
+			// load the custom UI element for flipping the tree
+			loadFlipTexture();
+
+            // bind to the after load handler
 			SaveEvents.AfterLoad += handleAfterLoad;
 		}
 
@@ -35,8 +39,6 @@ namespace TreeTransplant
 		internal void handleAfterLoad(object sender, EventArgs e)
 		{
 			MenuEvents.MenuChanged += handleMenuChanged;
-			ControlEvents.KeyReleased += handleKeyRelease;
-
 		}
 
 		/// <summary>
@@ -128,34 +130,6 @@ namespace TreeTransplant
                 default:
                     break;
             }
-		}
-
-		/// <summary>
-		/// Called when the keyboard state is changed
-		/// </summary>
-		private void handleKeyRelease(object sender, EventArgsKeyPressed e)
-		{
-			// transplant key temporary
-			if (e.KeyPressed == Keys.T)
-				Game1.activeClickableMenu = new TreeTransplantMenu(Helper);
-
-			if (e.KeyPressed == Keys.F2)
-			{
-				// get the screen
-				var screen = this.Helper.Reflection.GetPrivateField<RenderTarget2D>(Game1.game1, "screen").GetValue();
-				screen.SaveAsPng(new FileStream(Path.Combine(this.Helper.DirectoryPath, "Screenshots", "test.png"), FileMode.Create), Game1.viewport.Width, Game1.viewport.Height);
-			}
-		}
-
-		/// <summary>
-		/// Gets called when loading content has begun to handle our own content loading
-		/// </summary>
-		private void handleLoadContent(object sender, EventArgs e)
-		{
-			// batch together the trees in a render texture for our menu
-			loadTreeTexture();
-			// load the custom UI element for flipping the tree
-			loadFlipTexture();
 		}
 
 		/// <summary>
