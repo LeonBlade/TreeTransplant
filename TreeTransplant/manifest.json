@@ -1,0 +1,13 @@
+﻿{
+   "Name": "TreeTransplant",
+   "Author": "James Stine",
+   "SemanticVersion": {
+      "MajorVersion": 1,
+      "MinorVersion": 0,
+      "PatchVersion": 0,
+      "Build": ""
+   },
+   "Description": "Allows you to transplant fruit trees in game.",
+   "UniqueID": "TreeTransplant",
+   "EntryDll": "TreeTransplant.dll"
+}
