@@ -4,7 +4,7 @@ on your farm without needing to chop them down and wait for them to regrow.
 
 ## Install
 1. [Install the latest version of SMAPI](http://canimod.com/for-players/install-smapi).
-2. Download the newest version and install into the mods directory.
+2. [Download the newest version](https://github.com/LeonBlade/TreeTransplant/releases) and install into the mods directory.
 3. Run the game using SMAPI.
 
 ## Use
@@ -42,6 +42,7 @@ See [releases page](https://github.com/LeonBlade/TreeTransplant/releases).
 
 GPL-3.0
 
-## See Also
+## See also
 
-* [Nexus Mods](http://www.nexusmods.com/stardewvalley/mods/1342/)
+* [Nexus mods](http://www.nexusmods.com/stardewvalley/mods/1342/)
+* [Discussion thread](http://community.playstarbound.com/threads/treetransplant.135549)
