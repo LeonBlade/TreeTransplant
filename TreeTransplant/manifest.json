@@ -1,7 +1,7 @@
-﻿{
+{
    "Name": "TreeTransplant",
    "Author": "James Stine",
-   "SemanticVersion": {
+   "Version": {
       "MajorVersion": 1,
       "MinorVersion": 0,
       "PatchVersion": 0,
