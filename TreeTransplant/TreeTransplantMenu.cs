@@ -12,7 +12,6 @@ namespace TreeTransplant
 {
 	public class TreeTransplantMenu : IClickableMenu
 	{
-		private IModHelper Helper;
 		private GameLocation savedLocation;
 		private Farm farm;
 		private Rectangle greenSquare;
@@ -26,11 +25,8 @@ namespace TreeTransplant
 		private readonly string defaultText = "Select a tree to transplant.";
 		private readonly string placementText = "Choose a new spot for the tree.";
 
-		public TreeTransplantMenu(IModHelper helper)
+		public TreeTransplantMenu()
 		{
-			// store helper
-			Helper = helper;
-
 			// play a sound
 			Game1.playSound("dwop");
 			// open the menu after a fade to black

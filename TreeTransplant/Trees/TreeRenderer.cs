@@ -12,8 +12,7 @@ namespace TreeTransplant
 		public ITree tree;
 		public Vector2 location;
 		public bool flipped;
-		private IModHelper Helper;
-		
+
 		public TreeRenderer(ITree itree)
 		{
 			Initialize(itree);
@@ -52,8 +51,7 @@ namespace TreeTransplant
 			// only draw the stump if we need to
 			if (tree.stump)
 				drawPart(b, tileLocation, tree.stumpSourceRect);
-			else
-				drawPart(b, tileLocation, tree.treeTopSourceRect);
+			drawPart(b, tileLocation, tree.treeTopSourceRect);
 		}
 
 		private void drawPart(SpriteBatch b, Vector2 tileLocation, Rectangle source)

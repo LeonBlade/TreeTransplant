@@ -14,6 +14,7 @@ namespace TreeTransplant
 	public class TreeTransplant : Mod
 	{
 		public static Texture2D treeTexture;
+        public static Texture2D specialTreeTexture;
 		public static Texture2D flipTexture;
         public static IModHelper helper;
 
@@ -25,6 +26,8 @@ namespace TreeTransplant
 		{
 			// batch together the trees in a render texture for our menu
 			loadTreeTexture();
+            loadSpecialTreeTexture();
+
 			// load the custom UI element for flipping the tree
 			loadFlipTexture();
 
@@ -125,7 +128,7 @@ namespace TreeTransplant
                     break;
                 case "Tree":
                     Game1.player.forceCanMove();
-                    Game1.activeClickableMenu = new TreeTransplantMenu(Helper);
+                    Game1.activeClickableMenu = new TreeTransplantMenu();
                     break;
                 case "Leave":
                 default:
@@ -171,16 +174,16 @@ namespace TreeTransplant
 
 					// draw the trunk of the tree
 					Game1.spriteBatch.Draw(
-						currentTreeTexture, 
-						new Vector2((48 * i) + 16, (96 * (s + 1)) - 32), 
-						Tree.stumpSourceRect, 
+						currentTreeTexture,
+						new Vector2((48 * i) + 16, (96 * (s + 1)) - 32),
+						Tree.stumpSourceRect,
 						Color.White);
-					
+
 					// draw the top of the tree
 					Game1.spriteBatch.Draw(
-						currentTreeTexture, 
-						new Vector2(48 * i, 96 * s), 
-						Tree.treeTopSourceRect, 
+						currentTreeTexture,
+						new Vector2(48 * i, 96 * s),
+						Tree.treeTopSourceRect,
 						Color.White);
 				}
 			}
@@ -195,6 +198,66 @@ namespace TreeTransplant
 
 			// return our tree texture
 			treeTexture = Texture2D.FromStream(Game1.graphics.GraphicsDevice, stream);
+		}
+
+		/// <summary>
+		/// Used to load the special tree texture by batching together the textures from XNB into a custom render target
+		/// </summary>
+		internal void loadSpecialTreeTexture()
+		{
+			// create a render target to prepare the tree texture to
+			var texture = new RenderTarget2D(Game1.graphics.GraphicsDevice, 96, 96);
+
+			// set the render target and clear the buffer
+			Game1.graphics.GraphicsDevice.SetRenderTarget(texture);
+			Game1.graphics.GraphicsDevice.Clear(Color.Transparent);
+
+			// begin drawing session
+			Game1.spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, SamplerState.PointClamp);
+
+			// get the special tree's texture
+			Texture2D mushroomTreeTexture = Game1.content.Load<Texture2D>("TerrainFeatures\\mushroom_tree");
+            Texture2D palmTreeTexture = Game1.content.Load<Texture2D>("TerrainFeatures\\tree_palm");
+
+			// draw the trunk of the tree
+			Game1.spriteBatch.Draw(
+                palmTreeTexture,
+				new Vector2(16, 64),
+				Tree.stumpSourceRect,
+				Color.White);
+
+			// draw the top of the tree
+			Game1.spriteBatch.Draw(
+				palmTreeTexture,
+				new Vector2(0, 0),
+				Tree.treeTopSourceRect,
+				Color.White);
+
+			// draw the trunk of the tree
+			Game1.spriteBatch.Draw(
+				mushroomTreeTexture,
+				new Vector2(64, 64),
+				Tree.stumpSourceRect,
+				Color.White);
+
+			// draw the top of the tree
+			Game1.spriteBatch.Draw(
+				mushroomTreeTexture,
+				new Vector2(48, 0),
+				Tree.treeTopSourceRect,
+				Color.White);
+            
+			Game1.spriteBatch.End();
+
+			// reset the render target back to the back buffer
+			Game1.graphics.GraphicsDevice.SetRenderTarget(null);
+
+			// create memory stream to save texture as PNG
+			var stream = new MemoryStream();
+			(texture as Texture2D).SaveAsPng(stream, texture.Width, texture.Height);
+
+			// return our tree texture
+			specialTreeTexture = Texture2D.FromStream(Game1.graphics.GraphicsDevice, stream);
 		}
 
 		/// <summary>

@@ -25,8 +25,13 @@ namespace TreeTransplant
 		{
 			get 
 			{
-				if (isAdult() && !tree.stump)
-					return TreeTransplant.treeTexture;
+                if (isAdult() && !tree.stump)
+                {
+                    if (tree.treeType == Tree.bushyTree || tree.treeType == Tree.leafyTree || tree.treeType == Tree.pineTree)
+                        return TreeTransplant.treeTexture;
+                    else if (tree.treeType == Tree.mushroomTree || tree.treeType == Tree.palmTree)
+                        return TreeTransplant.specialTreeTexture;
+                }
                 return TreeTransplant.helper.Reflection.GetPrivateField<Texture2D>(tree, "texture").GetValue();
 			}
 		}
@@ -71,8 +76,11 @@ namespace TreeTransplant
 					return rect;
 				}
 
-				int season = Utility.getSeasonNumber(Game1.currentSeason);
-				return new Rectangle(48 * (tree.treeType - 1), season * 96, 48, 96);
+                bool basicTree = (tree.treeType >= 1 && tree.treeType <= 3);
+                int xOffset = tree.treeType - (basicTree ? 1 : 6);
+                int yOffset = basicTree ? Utility.getSeasonNumber(Game1.currentSeason) : 0;
+
+                return new Rectangle(48 * xOffset, yOffset * 96, 48, 96);
 			}
 		}
 
