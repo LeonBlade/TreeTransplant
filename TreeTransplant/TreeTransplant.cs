@@ -1,6 +1,5 @@
 ﻿﻿using System;
 using System.IO;
-using System.Collections.Generic;
 using StardewModdingAPI;
 using StardewModdingAPI.Events;
 using StardewValley;
@@ -9,7 +8,6 @@ using StardewValley.TerrainFeatures;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
-using System.Collections.Specialized;
 
 namespace TreeTransplant
 {
@@ -17,6 +15,7 @@ namespace TreeTransplant
 	{
 		public static Texture2D treeTexture;
 		public static Texture2D flipTexture;
+        public static IModHelper helper;
 
 		/// <summary>
 		/// Called on the mod being initialized
@@ -28,6 +27,8 @@ namespace TreeTransplant
 			loadTreeTexture();
 			// load the custom UI element for flipping the tree
 			loadFlipTexture();
+
+            TreeTransplant.helper = helper;
 
             // bind to the after load handler
 			SaveEvents.AfterLoad += handleAfterLoad;

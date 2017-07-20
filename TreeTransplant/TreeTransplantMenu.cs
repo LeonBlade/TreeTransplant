@@ -357,7 +357,7 @@ namespace TreeTransplant
 						return;
 					}
 					// set the selected tree
-					selectedTree = new TreeRenderer(Helper, terrainFeature);
+					selectedTree = new TreeRenderer(terrainFeature);
 					selectedTreeLocation = tileLocation;
 					Game1.playSound("bigSelect");
 				}

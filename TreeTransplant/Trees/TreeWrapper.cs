@@ -3,17 +3,16 @@ using StardewValley.TerrainFeatures;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using StardewModdingAPI;
+using System;
 
 namespace TreeTransplant
 {
 	public class TreeWrapper : ITree
 	{
-		private IModHelper Helper;
 		private Tree tree;
 
-		public TreeWrapper(IModHelper helper, Tree t)
+		public TreeWrapper(Tree t)
 		{
-			Helper = helper;
 			tree = t;
 		}
 
@@ -28,7 +27,7 @@ namespace TreeTransplant
 			{
 				if (isAdult() && !tree.stump)
 					return TreeTransplant.treeTexture;
-				return Helper.Reflection.GetPrivateField<Texture2D>(tree, "texture").GetValue(); 
+                return TreeTransplant.helper.Reflection.GetPrivateField<Texture2D>(tree, "texture").GetValue();
 			}
 		}
 

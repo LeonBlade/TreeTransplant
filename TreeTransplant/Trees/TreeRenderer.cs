@@ -14,21 +14,20 @@ namespace TreeTransplant
 		public bool flipped;
 		private IModHelper Helper;
 		
-		public TreeRenderer(IModHelper helper, ITree itree)
+		public TreeRenderer(ITree itree)
 		{
-			Initialize(helper, itree);
+			Initialize(itree);
 		}
 
-		public TreeRenderer(IModHelper helper, TerrainFeature tf)
+		public TreeRenderer(TerrainFeature tf)
 		{
-			Initialize(helper, Cast(tf));
+			Initialize(Cast(tf));
 		}
 
-		void Initialize(IModHelper helper, ITree itree)
+		void Initialize(ITree itree)
 		{
-			Helper = helper;
-			tree = itree;
-			flipped = tree.flipped;
+			this.tree = itree;
+			this.flipped = tree.flipped;
 		}
 
 		public void propFlip()
@@ -40,7 +39,7 @@ namespace TreeTransplant
 		{
 			// return the appropriate wrapper
 			if (tf is Tree)
-				return new TreeWrapper(Helper,(Tree)tf);
+				return new TreeWrapper((Tree)tf);
 			if (tf is FruitTree)
 				return new FruitTreeWrapper((FruitTree)tf);
 			
