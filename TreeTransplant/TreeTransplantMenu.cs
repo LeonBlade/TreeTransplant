@@ -35,6 +35,27 @@ namespace TreeTransplant
 			// set the rectangles for green and red square
 			greenSquare = new Rectangle(194, 388, 16, 16);
 			redSquare = new Rectangle(210, 388, 16, 16);
+			
+			// initialize buttons
+			cancelButton = new ClickableTextureComponent(
+				new Rectangle(
+					xPositionOnScreen + width - IClickableMenu.borderWidth - IClickableMenu.spaceToClearSideBorder - Game1.tileSize, 
+					yPositionOnScreen + IClickableMenu.spaceToClearTopBorder + Game1.tileSize, 
+					Game1.tileSize, 
+					Game1.tileSize), 
+				Game1.mouseCursors, 
+				Game1.getSourceRectForStandardTileSheet(Game1.mouseCursors, 47, -1, -1), 
+				1.0f);
+			
+			flipButton = new ClickableTextureComponent(
+				new Rectangle(
+					xPositionOnScreen + width - IClickableMenu.borderWidth - IClickableMenu.spaceToClearSideBorder - (Game1.tileSize * 2) - (Game1.tileSize / 2),
+					yPositionOnScreen + IClickableMenu.spaceToClearTopBorder + Game1.tileSize,
+					Game1.tileSize,
+					Game1.tileSize),
+				TreeTransplant.flipTexture,
+				new Rectangle(0, 0, 64, 64),
+				1.0f);
 
 			resetBounds();
 		}
@@ -64,14 +85,6 @@ namespace TreeTransplant
 			Game1.displayFarmer = false;
 			// set the farm
 			farm = Game1.currentLocation as Farm;
-
-			// set the bounds
-			cancelButton.bounds.X = Game1.viewport.Width - Game1.tileSize * 2;
-			cancelButton.bounds.Y = Game1.viewport.Height - Game1.tileSize * 2;
-
-			flipButton.bounds.X = cancelButton.bounds.X - (int)(Game1.tileSize / 0.75);
-			flipButton.bounds.Y = cancelButton.bounds.Y;
-
 			// fade the screen in with no callback
 			Game1.globalFadeToClear();
 		}
@@ -440,25 +453,12 @@ namespace TreeTransplant
 		/// </summary>
 		void resetBounds()
 		{
-			cancelButton = new ClickableTextureComponent(
-				new Rectangle(
-					xPositionOnScreen + width - IClickableMenu.borderWidth - IClickableMenu.spaceToClearSideBorder - Game1.tileSize, 
-					yPositionOnScreen + IClickableMenu.spaceToClearTopBorder + Game1.tileSize, 
-					Game1.tileSize, 
-					Game1.tileSize), 
-				Game1.mouseCursors, 
-				Game1.getSourceRectForStandardTileSheet(Game1.mouseCursors, 47, -1, -1), 
-				1.0f);
-			
-			flipButton = new ClickableTextureComponent(
-				new Rectangle(
-					xPositionOnScreen + width - IClickableMenu.borderWidth - IClickableMenu.spaceToClearSideBorder - (Game1.tileSize * 2) - (Game1.tileSize / 2),
-					yPositionOnScreen + IClickableMenu.spaceToClearTopBorder + Game1.tileSize,
-					Game1.tileSize,
-					Game1.tileSize),
-				TreeTransplant.flipTexture,
-				new Rectangle(0, 0, 64, 64),
-				1.0f);
+			// set the bounds
+			cancelButton.bounds.X = Game1.viewport.Width - Game1.tileSize * 2;
+			cancelButton.bounds.Y = Game1.viewport.Height - Game1.tileSize * 2;
+
+			flipButton.bounds.X = cancelButton.bounds.X - (int)(Game1.tileSize / 0.75);
+			flipButton.bounds.Y = cancelButton.bounds.Y;
 		}
 
 		/// <summary>
