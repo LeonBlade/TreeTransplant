@@ -83,7 +83,7 @@ namespace TreeTransplant
 				{
 					new Response("Shop", Game1.content.LoadString("Strings\\Locations:ScienceHouse_CarpenterMenu_Shop")),
 					new Response("Upgrade", Game1.content.LoadString("Strings\\Locations:ScienceHouse_CarpenterMenu_UpgradeHouse")),
-					new Response("Tree", "Tranplant Trees"),
+					new Response("Tree", "Transplant Trees"),
 					new Response("Construct", Game1.content.LoadString("Strings\\Locations:ScienceHouse_CarpenterMenu_Construct")),
 					new Response("Leave", Game1.content.LoadString("Strings\\Locations:ScienceHouse_CarpenterMenu_Leave"))
 				};
@@ -92,7 +92,7 @@ namespace TreeTransplant
 				answerChoices = new Response[4]
 				{
 					new Response("Shop", Game1.content.LoadString("Strings\\Locations:ScienceHouse_CarpenterMenu_Shop")),
-					new Response("Tree", "Tranplant Trees"),
+					new Response("Tree", "Transplant Trees"),
 					new Response("Construct", Game1.content.LoadString("Strings\\Locations:ScienceHouse_CarpenterMenu_Construct")),
 					new Response("Leave", Game1.content.LoadString("Strings\\Locations:ScienceHouse_CarpenterMenu_Leave"))
 				};
