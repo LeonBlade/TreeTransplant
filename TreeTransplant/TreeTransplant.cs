@@ -32,7 +32,6 @@ namespace TreeTransplant
 			loadFlipTexture();
 
             TreeTransplant.helper = helper;
-
             // bind to the after load handler
 			SaveEvents.AfterLoad += handleAfterLoad;
 		}
@@ -78,12 +77,12 @@ namespace TreeTransplant
 			Response[] answerChoices;
 
 			// handle if the house can still be upgraded
-			if (Game1.player.houseUpgradeLevel < 3)
+			if (Game1.player.HouseUpgradeLevel < 3)
 				answerChoices = new Response[5]
 				{
 					new Response("Shop", Game1.content.LoadString("Strings\\Locations:ScienceHouse_CarpenterMenu_Shop")),
 					new Response("Upgrade", Game1.content.LoadString("Strings\\Locations:ScienceHouse_CarpenterMenu_UpgradeHouse")),
-					new Response("Tree", "Tranplant Trees"),
+					new Response("Tree", "Transplant Trees"),
 					new Response("Construct", Game1.content.LoadString("Strings\\Locations:ScienceHouse_CarpenterMenu_Construct")),
 					new Response("Leave", Game1.content.LoadString("Strings\\Locations:ScienceHouse_CarpenterMenu_Leave"))
 				};
@@ -92,7 +91,7 @@ namespace TreeTransplant
 				answerChoices = new Response[4]
 				{
 					new Response("Shop", Game1.content.LoadString("Strings\\Locations:ScienceHouse_CarpenterMenu_Shop")),
-					new Response("Tree", "Tranplant Trees"),
+					new Response("Tree", "Transplant Trees"),
 					new Response("Construct", Game1.content.LoadString("Strings\\Locations:ScienceHouse_CarpenterMenu_Construct")),
 					new Response("Leave", Game1.content.LoadString("Strings\\Locations:ScienceHouse_CarpenterMenu_Leave"))
 				};
@@ -121,7 +120,7 @@ namespace TreeTransplant
                     Game1.activeClickableMenu = new ShopMenu(Utility.getCarpenterStock(), 0, "Robin");
                     break;
                 case "Upgrade":
-                    Helper.Reflection.GetPrivateMethod(Game1.currentLocation, "houseUpgradeOffer").Invoke();
+                    Helper.Reflection.GetMethod(Game1.currentLocation, "houseUpgradeOffer").Invoke();
                     break;
                 case "Construct":
                     Game1.activeClickableMenu = new CarpenterMenu(false);
@@ -152,8 +151,8 @@ namespace TreeTransplant
 			Game1.graphics.GraphicsDevice.Clear(Color.Transparent);
 
 			// begin drawing session
-			Game1.spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, SamplerState.PointClamp);
-
+			Game1.spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, SamplerState.PointClamp, null, null);
+            
 			for (int s = 0; s < seasons.Length; s++)
 			{
 				// loop through the three trees in the game
@@ -213,7 +212,7 @@ namespace TreeTransplant
 			Game1.graphics.GraphicsDevice.Clear(Color.Transparent);
 
 			// begin drawing session
-			Game1.spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, SamplerState.PointClamp);
+			Game1.spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, SamplerState.PointClamp, null, null);
 
 			// get the special tree's texture
 			Texture2D mushroomTreeTexture = Game1.content.Load<Texture2D>("TerrainFeatures\\mushroom_tree");

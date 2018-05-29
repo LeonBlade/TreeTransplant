@@ -25,26 +25,26 @@ namespace TreeTransplant
 		{
 			get 
 			{
-                if (isAdult() && !tree.stump)
+                if (isAdult() && !tree.stump.Value)
                 {
-                    if (tree.treeType == Tree.bushyTree || tree.treeType == Tree.leafyTree || tree.treeType == Tree.pineTree)
+                    if (tree.treeType.Value == Tree.bushyTree || tree.treeType.Value == Tree.leafyTree || tree.treeType.Value == Tree.pineTree)
                         return TreeTransplant.treeTexture;
-                    else if (tree.treeType == Tree.mushroomTree || tree.treeType == Tree.palmTree)
+                    else if (tree.treeType.Value == Tree.mushroomTree || tree.treeType.Value == Tree.palmTree)
                         return TreeTransplant.specialTreeTexture;
                 }
-                return TreeTransplant.helper.Reflection.GetPrivateField<Texture2D>(tree, "texture").GetValue();
+                return TreeTransplant.helper.Reflection.GetField<Lazy<Texture2D>>(tree, "texture").GetValue().Value;
 			}
 		}
 
 		public bool flipped
 		{
-			get { return tree.flipped; }
-			set { tree.flipped = value; }
-		}
+            get { return tree.flipped.Value; }
+            set { tree.flipped.Set(value); }
+        }
 
 		public int treeType
 		{
-			get { return tree.treeType; }
+			get { return tree.treeType.Value; }
 		}
 
 		public Rectangle treeTopSourceRect
@@ -54,7 +54,7 @@ namespace TreeTransplant
 				if (!isAdult())
 				{
 					Rectangle rect;
-					switch (tree.growthStage)
+					switch (tree.growthStage.Value)
 					{
 						// seed
 						case 0:
@@ -76,8 +76,8 @@ namespace TreeTransplant
 					return rect;
 				}
 
-                bool basicTree = (tree.treeType >= 1 && tree.treeType <= 3);
-                int xOffset = tree.treeType - (basicTree ? 1 : 6);
+                bool basicTree = (tree.treeType.Value >= 1 && tree.treeType.Value <= 3);
+                int xOffset = tree.treeType.Value - (basicTree ? 1 : 6);
                 int yOffset = basicTree ? Utility.getSeasonNumber(Game1.currentSeason) : 0;
 
                 return new Rectangle(48 * xOffset, yOffset * 96, 48, 96);
@@ -96,12 +96,12 @@ namespace TreeTransplant
 
 		public bool stump
 		{
-			get { return tree.stump; }
+			get { return tree.stump.Value; }
 		}
 
 		public bool isAdult()
 		{
-			return tree.growthStage > 4;
+			return tree.growthStage.Value > 4;
 		}
 
 		public bool isStumpSeparate()

@@ -290,7 +290,7 @@ namespace TreeTransplant
 			bool isTree = (tf is Tree || tf is FruitTree);
 			// make exception for smaller trees
 			if (tf is Tree)
-				return (tf as Tree).growthStage > 4;
+				return (tf as Tree).growthStage.Value > 4;
 			return isTree;
 		}
 
@@ -346,14 +346,14 @@ namespace TreeTransplant
 				// make sure its the type we care about
 				if (terrainFeature is FruitTree || terrainFeature is Tree)
 				{
-					if (terrainFeature is Tree && (terrainFeature as Tree).tapped)
+					if (terrainFeature is Tree && (terrainFeature as Tree).tapped.Value)
 					{
 						Notifier.Message("Can't move tree with a tree tap!");
 						Game1.playSound("cancel");
 						return;
 					}
-					// set the selected tree
-					selectedTree = new TreeRenderer(terrainFeature);
+                    // set the selected tree                    
+                    selectedTree = new TreeRenderer(terrainFeature);
 					selectedTreeLocation = tileLocation;
 					Game1.playSound("bigSelect");
 				}

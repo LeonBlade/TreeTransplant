@@ -26,25 +26,25 @@ namespace TreeTransplant
 
 		public bool flipped
 		{
-			get { return tree.flipped; }
-			set { tree.flipped = value; }
+			get { return tree.flipped.Value; }
+			set { tree.flipped.Set(value); }
 		}
 
 		public int treeType
 		{
-			get { return tree.treeType; }
+			get { return tree.treeType.Value; }
 		}
 
 		public Rectangle treeTopSourceRect
 		{
 			get 
 			{
-				bool adult = tree.growthStage > 3;
+				bool adult = tree.growthStage.Value > 3;
 				int season = Utility.getSeasonNumber(Game1.currentSeason);
 
 				return new Rectangle(
-					tree.growthStage * 48 + (adult ? season * 48 : 4), // offset the small trees because idk
-					tree.treeType * 80, 
+					tree.growthStage.Value * 48 + (adult ? season * 48 : 4), // offset the small trees because idk
+					tree.treeType.Value * 80, 
 					48, 
 					80
 				); 
@@ -53,7 +53,7 @@ namespace TreeTransplant
 
 		public Rectangle stumpSourceRect
 		{
-			get { return new Rectangle(384, (tree.treeType * 80) + 56, 48, 24); }
+			get { return new Rectangle(384, (tree.treeType.Value * 80) + 56, 48, 24); }
 		}
 
 		public Rectangle getBoundingBox(Vector2 tileLocation)
@@ -63,12 +63,12 @@ namespace TreeTransplant
 
 		public bool stump
 		{
-			get { return tree.stump; }
+			get { return tree.stump.Value; }
 		}
 
 		public bool isAdult()
 		{
-			return tree.growthStage > 3;
+			return tree.growthStage.Value > 3;
 		}
 
 		public bool isStumpSeparate()
