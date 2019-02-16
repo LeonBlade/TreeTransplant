@@ -1,22 +1,21 @@
-﻿﻿using System;
+﻿using System;
 using System.IO;
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using StardewModdingAPI;
 using StardewModdingAPI.Events;
 using StardewValley;
 using StardewValley.Menus;
 using StardewValley.TerrainFeatures;
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework.Input;
 
 namespace TreeTransplant
 {
 	public class TreeTransplant : Mod
 	{
 		public static Texture2D treeTexture;
-        public static Texture2D specialTreeTexture;
+		public static Texture2D specialTreeTexture;
 		public static Texture2D flipTexture;
-        public static IModHelper helper;
+		public static IModHelper helper;
 
 		/// <summary>
 		/// Called on the mod being initialized
@@ -26,13 +25,13 @@ namespace TreeTransplant
 		{
 			// batch together the trees in a render texture for our menu
 			loadTreeTexture();
-            loadSpecialTreeTexture();
+			loadSpecialTreeTexture();
 
 			// load the custom UI element for flipping the tree
 			loadFlipTexture();
 
-            TreeTransplant.helper = helper;
-            // bind to the after load handler
+			TreeTransplant.helper = helper;
+			// bind to the after load handler
 			SaveEvents.AfterLoad += handleAfterLoad;
 		}
 
@@ -101,7 +100,7 @@ namespace TreeTransplant
 
 			// create the question dialogue with our custom tag
 			science.createQuestionDialogue(
-				Game1.content.LoadString("Strings\\Locations:ScienceHouse_CarpenterMenu"), 
+				Game1.content.LoadString("Strings\\Locations:ScienceHouse_CarpenterMenu"),
 				answerChoices,
 				handleCarpenterMenuAnswer
 			);
@@ -114,25 +113,26 @@ namespace TreeTransplant
 		/// <param name="whichAnswer">Which answer key was chosen.</param>
 		internal void handleCarpenterMenuAnswer(Farmer who, string whichAnswer)
 		{
-            switch (whichAnswer) {
-                case "Shop":
-                    Game1.player.forceCanMove();
-                    Game1.activeClickableMenu = new ShopMenu(Utility.getCarpenterStock(), 0, "Robin");
-                    break;
-                case "Upgrade":
-                    Helper.Reflection.GetMethod(Game1.currentLocation, "houseUpgradeOffer").Invoke();
-                    break;
-                case "Construct":
-                    Game1.activeClickableMenu = new CarpenterMenu(false);
-                    break;
-                case "Tree":
-                    Game1.player.forceCanMove();
-                    Game1.activeClickableMenu = new TreeTransplantMenu();
-                    break;
-                case "Leave":
-                default:
-                    break;
-            }
+			switch (whichAnswer)
+			{
+				case "Shop":
+					Game1.player.forceCanMove();
+					Game1.activeClickableMenu = new ShopMenu(Utility.getCarpenterStock(), 0, "Robin");
+					break;
+				case "Upgrade":
+					Helper.Reflection.GetMethod(Game1.currentLocation, "houseUpgradeOffer").Invoke();
+					break;
+				case "Construct":
+					Game1.activeClickableMenu = new CarpenterMenu(false);
+					break;
+				case "Tree":
+					Game1.player.forceCanMove();
+					Game1.activeClickableMenu = new TreeTransplantMenu();
+					break;
+				case "Leave":
+				default:
+					break;
+			}
 		}
 
 		/// <summary>
@@ -152,7 +152,7 @@ namespace TreeTransplant
 
 			// begin drawing session
 			Game1.spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, SamplerState.PointClamp, null, null);
-            
+
 			for (int s = 0; s < seasons.Length; s++)
 			{
 				// loop through the three trees in the game
@@ -216,11 +216,11 @@ namespace TreeTransplant
 
 			// get the special tree's texture
 			Texture2D mushroomTreeTexture = Game1.content.Load<Texture2D>("TerrainFeatures\\mushroom_tree");
-            Texture2D palmTreeTexture = Game1.content.Load<Texture2D>("TerrainFeatures\\tree_palm");
+			Texture2D palmTreeTexture = Game1.content.Load<Texture2D>("TerrainFeatures\\tree_palm");
 
 			// draw the trunk of the tree
 			Game1.spriteBatch.Draw(
-                palmTreeTexture,
+				palmTreeTexture,
 				new Vector2(16, 64),
 				Tree.stumpSourceRect,
 				Color.White);
@@ -245,7 +245,7 @@ namespace TreeTransplant
 				new Vector2(48, 0),
 				Tree.treeTopSourceRect,
 				Color.White);
-            
+
 			Game1.spriteBatch.End();
 
 			// reset the render target back to the back buffer
@@ -265,7 +265,7 @@ namespace TreeTransplant
 		internal void loadFlipTexture()
 		{
 			flipTexture = Texture2D.FromStream(
-				Game1.graphics.GraphicsDevice, 
+				Game1.graphics.GraphicsDevice,
 				new FileStream(Path.Combine(Helper.DirectoryPath, "assets", "flip.png"), FileMode.Open));
 		}
 	}
