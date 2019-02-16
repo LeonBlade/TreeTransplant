@@ -266,7 +266,7 @@ namespace TreeTransplant
 		{
 			flipTexture = Texture2D.FromStream(
 				Game1.graphics.GraphicsDevice, 
-				new FileStream(Path.Combine(Helper.DirectoryPath, "Content", "flip.png"), FileMode.Open));
+				new FileStream(Path.Combine(Helper.DirectoryPath, "assets", "flip.png"), FileMode.Open));
 		}
 	}
 }
