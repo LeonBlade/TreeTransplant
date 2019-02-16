@@ -1,5 +1,4 @@
-﻿using System;
-using System.IO;
+﻿using System.IO;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using StardewModdingAPI;
@@ -10,6 +9,9 @@ using StardewValley.TerrainFeatures;
 
 namespace TreeTransplant
 {
+	/// <summary>
+	/// The mod entry class called by SMAPI.
+	/// </summary>
 	public class TreeTransplant : Mod
 	{
 		public static Texture2D treeTexture;
@@ -18,9 +20,9 @@ namespace TreeTransplant
 		public static IModHelper helper;
 
 		/// <summary>
-		/// Called on the mod being initialized
+		/// The mod entry point, called after the mod is first loaded.
 		/// </summary>
-		/// <param name="helper">Instance of mod helper.</param>
+		/// <param name="helper">Provides simplified APIs for writing mods.</param>
 		public override void Entry(IModHelper helper)
 		{
 			// batch together the trees in a render texture for our menu
@@ -32,29 +34,19 @@ namespace TreeTransplant
 
 			TreeTransplant.helper = helper;
 			// bind to the after load handler
-			SaveEvents.AfterLoad += handleAfterLoad;
+			helper.Events.Display.MenuChanged += OnMenuChanged;
 		}
 
 		/// <summary>
-		/// Gets called after the game's save is loaded
+		/// Raised after a game menu is opened, closed, or replaced.
 		/// </summary>
-		internal void handleAfterLoad(object sender, EventArgs e)
+		/// <param name="sender">The event sender.</param>
+		/// <param name="e">The event data.</param>
+		internal void OnMenuChanged(object sender, MenuChangedEventArgs e)
 		{
-			MenuEvents.MenuChanged += handleMenuChanged;
-		}
-
-		/// <summary>
-		/// Handles the menu changes
-		/// </summary>
-		internal void handleMenuChanged(object sender, EventArgsClickableMenuChanged e)
-		{
-			// are we in the science house
-			if (Game1.currentLocation.Name == "ScienceHouse")
-				// check for the new menu
-				if (e.NewMenu is DialogueBox)
-					// if this is the normal carpenter dialogue
-					if (Game1.currentLocation.lastQuestionKey == "carpenter")
-						handleDialogueMenu();
+			// carpenter dialog in science house?
+			if (Game1.currentLocation?.Name == "ScienceHouse" && e.NewMenu is DialogueBox && Game1.currentLocation.lastQuestionKey == "carpenter")
+				handleDialogueMenu();
 		}
 
 		/// <summary>
@@ -77,7 +69,7 @@ namespace TreeTransplant
 
 			// handle if the house can still be upgraded
 			if (Game1.player.HouseUpgradeLevel < 3)
-				answerChoices = new Response[5]
+				answerChoices = new[]
 				{
 					new Response("Shop", Game1.content.LoadString("Strings\\Locations:ScienceHouse_CarpenterMenu_Shop")),
 					new Response("Upgrade", Game1.content.LoadString("Strings\\Locations:ScienceHouse_CarpenterMenu_UpgradeHouse")),
@@ -87,7 +79,7 @@ namespace TreeTransplant
 				};
 			// handle when the house is fully upgraded
 			else
-				answerChoices = new Response[4]
+				answerChoices = new[]
 				{
 					new Response("Shop", Game1.content.LoadString("Strings\\Locations:ScienceHouse_CarpenterMenu_Shop")),
 					new Response("Tree", "Transplant Trees"),
@@ -141,7 +133,7 @@ namespace TreeTransplant
 		internal void loadTreeTexture()
 		{
 			// the list of seasons
-			var seasons = new string[] { "spring", "summer", "fall", "winter" };
+			var seasons = new[] { "spring", "summer", "fall", "winter" };
 
 			// create a render target to prepare the tree texture to
 			var texture = new RenderTarget2D(Game1.graphics.GraphicsDevice, 144, 96 * seasons.Length);
@@ -193,7 +185,7 @@ namespace TreeTransplant
 
 			// create memory stream to save texture as PNG
 			var stream = new MemoryStream();
-			(texture as Texture2D).SaveAsPng(stream, texture.Width, texture.Height);
+			texture.SaveAsPng(stream, texture.Width, texture.Height);
 
 			// return our tree texture
 			treeTexture = Texture2D.FromStream(Game1.graphics.GraphicsDevice, stream);
@@ -253,7 +245,7 @@ namespace TreeTransplant
 
 			// create memory stream to save texture as PNG
 			var stream = new MemoryStream();
-			(texture as Texture2D).SaveAsPng(stream, texture.Width, texture.Height);
+			texture.SaveAsPng(stream, texture.Width, texture.Height);
 
 			// return our tree texture
 			specialTreeTexture = Texture2D.FromStream(Game1.graphics.GraphicsDevice, stream);
