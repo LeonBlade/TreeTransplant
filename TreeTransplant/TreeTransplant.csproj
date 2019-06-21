@@ -86,6 +86,9 @@
     <None Include="i18n\ru.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Include="i18n\tr.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="i18n\zh.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
