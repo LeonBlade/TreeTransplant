@@ -5,6 +5,6 @@
   "Description": "Allows you to transplant trees in game.",
   "UniqueID": "TreeTransplant",
   "EntryDll": "TreeTransplant.dll",
-  "MinimumApiVersion": "2.10.2",
+  "MinimumApiVersion": "3.0.0",
   "UpdateKeys": [ "Github:LeonBlade/TreeTransplant" ]
 }
