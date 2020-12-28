@@ -127,7 +127,6 @@ namespace TreeTransplant
 					Game1.activeClickableMenu = new CarpenterMenu(false);
 					break;
 				case "Tree":
-					Game1.player.forceCanMove();
 					Game1.activeClickableMenu = new TreeTransplantMenu();
 					break;
 				case "Leave":
