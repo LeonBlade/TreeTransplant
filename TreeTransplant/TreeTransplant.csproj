@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
-    <GamePath>Y:\Program Files\GOG Galaxy\Games\Stardew Valley</GamePath>
+    <GamePath>Y:\Program Files\Steam\steamapps\common\Stardew Valley</GamePath>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{5798FFA3-A9E1-424F-A0C0-D90B6FB0B3F0}</ProjectGuid>
