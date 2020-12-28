@@ -142,9 +142,10 @@ namespace TreeTransplant
 		{
 			// the list of seasons
 			var seasons = new[] { "spring", "summer", "fall", "winter" };
+			var trees = new[] { Tree.bushyTree, Tree.leafyTree, Tree.pineTree, Tree.mahoganyTree };
 
 			// create a render target to prepare the tree texture to
-			var texture = new RenderTarget2D(Game1.graphics.GraphicsDevice, 144, 96 * seasons.Length);
+			var texture = new RenderTarget2D(Game1.graphics.GraphicsDevice, 48 * trees.Length, 96 * seasons.Length);
 
 			// set the render target and clear the buffer
 			Game1.graphics.GraphicsDevice.SetRenderTarget(texture);
@@ -156,20 +157,20 @@ namespace TreeTransplant
 			// Get source rectangle for tree tops.
 			var treeTopSourceRect = new Tree().treeTopSourceRect;
 
-			for (int s = 0; s < seasons.Length; s++)
+			for (var s = 0; s < seasons.Length; s++)
 			{
 				// loop through the three trees in the game
-				for (int i = 0; i < 3; i++)
+				for (var i = 0; i < trees.Length; i++)
 				{
 					// get the current season
-					string season = seasons[s];
+					var season = seasons[s];
 
 					// spring and summer share the same texture for the pine tree
-					if (i == 2 && season.Equals("summer"))
+					if (trees[i] == Tree.pineTree && season.Equals("summer"))
 						season = "spring";
 
 					// load the texture into memory
-					string treeString = $"TerrainFeatures\\tree{i + 1}_{season}";
+					var treeString = $"TerrainFeatures\\tree{trees[i]}_{season}";
 
 					// get the current tree's texture
 					var currentTreeTexture = Game1.content.Load<Texture2D>(treeString);
