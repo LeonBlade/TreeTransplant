@@ -1,7 +1,7 @@
 {
   "Name": "Tree Transplant",
-  "Author": "James Stine",
-  "Version": "1.0.10",
+  "Author": "LeonBlade",
+  "Version": "1.0.11",
   "Description": "Allows you to transplant trees in game.",
   "UniqueID": "TreeTransplant",
   "EntryDll": "TreeTransplant.dll",
