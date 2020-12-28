@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 using System.IO;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -154,6 +154,9 @@ namespace TreeTransplant
 			// begin drawing session
 			Game1.spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, SamplerState.PointClamp, null, null);
 
+			// Get source rectangle for tree tops.
+			var treeTopSourceRect = new Tree().treeTopSourceRect;
+
 			for (int s = 0; s < seasons.Length; s++)
 			{
 				// loop through the three trees in the game
@@ -170,7 +173,7 @@ namespace TreeTransplant
 					string treeString = $"TerrainFeatures\\tree{i + 1}_{season}";
 
 					// get the current tree's texture
-					Texture2D currentTreeTexture = Game1.content.Load<Texture2D>(treeString);
+					var currentTreeTexture = Game1.content.Load<Texture2D>(treeString);
 
 					// draw the trunk of the tree
 					Game1.spriteBatch.Draw(
@@ -183,7 +186,7 @@ namespace TreeTransplant
 					Game1.spriteBatch.Draw(
 						currentTreeTexture,
 						new Vector2(48 * i, 96 * s),
-						Tree.treeTopSourceRect,
+						treeTopSourceRect,
 						Color.White);
 				}
 			}
@@ -216,8 +219,11 @@ namespace TreeTransplant
 			Game1.spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, SamplerState.PointClamp, null, null);
 
 			// get the special tree's texture
-			Texture2D mushroomTreeTexture = Game1.content.Load<Texture2D>("TerrainFeatures\\mushroom_tree");
-			Texture2D palmTreeTexture = Game1.content.Load<Texture2D>("TerrainFeatures\\tree_palm");
+			var mushroomTreeTexture = Game1.content.Load<Texture2D>("TerrainFeatures\\mushroom_tree");
+			var palmTreeTexture = Game1.content.Load<Texture2D>("TerrainFeatures\\tree_palm");
+
+			// Get source rectangle for tree tops.
+			var treeTopSourceRect = new Tree().treeTopSourceRect;
 
 			// draw the trunk of the tree
 			Game1.spriteBatch.Draw(
@@ -230,7 +236,7 @@ namespace TreeTransplant
 			Game1.spriteBatch.Draw(
 				palmTreeTexture,
 				new Vector2(0, 0),
-				Tree.treeTopSourceRect,
+				treeTopSourceRect,
 				Color.White);
 
 			// draw the trunk of the tree
@@ -244,7 +250,7 @@ namespace TreeTransplant
 			Game1.spriteBatch.Draw(
 				mushroomTreeTexture,
 				new Vector2(48, 0),
-				Tree.treeTopSourceRect,
+				treeTopSourceRect,
 				Color.White);
 
 			Game1.spriteBatch.End();
