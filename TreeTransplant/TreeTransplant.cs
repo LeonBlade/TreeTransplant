@@ -137,6 +137,10 @@ namespace TreeTransplant
 				case "Construct":
 					Game1.activeClickableMenu = new CarpenterMenu(false);
 					break;
+				case "Renovate":
+					Game1.player.forceCanMove();
+					HouseRenovation.ShowRenovationMenu();
+					break;
 				case "Tree":
 					Game1.activeClickableMenu = new TreeTransplantMenu();
 					break;
